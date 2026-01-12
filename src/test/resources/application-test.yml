@@ -1,0 +1,62 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: ecommerce-management-system-test
+  
+  # 测试数据源配置 - 使用H2内存数据库
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: 
+    
+  # H2数据库配置
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    
+  # Redis配置 - 使用嵌入式Redis
+  data:
+    redis:
+      host: localhost
+      port: 6370  # 测试专用Redis端口
+      database: 1
+      timeout: 3000ms
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+
+# JWT配置
+jwt:
+  secret: test-jwt-secret-key-2024
+  expiration: 3600000  # 1小时，单位毫秒
+
+# 缓存配置
+cache:
+  redis:
+    default-expiration: 300   # 测试环境5分钟过期
+    product-expiration: 600   # 商品缓存10分钟过期
+    category-expiration: 1200 # 分类缓存20分钟过期
+
+# 日志配置
+logging:
+  level:
+    com.ecommerce: debug
+    org.springframework.security: debug
+    org.springframework.web: debug
